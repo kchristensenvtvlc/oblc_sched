@@ -1,0 +1,19 @@
+{% include "header.html" %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+            <div class="col-2">
+                <img class="avatar" src='{{ presenter["presenter_avatar"] }}'>
+            </div>
+            <div class="col-10">
+                <h1>{{ presenter["presenter"] }}</h1>
+                <p>{{ presenter["presenter_bio"] }}</p>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+{% include "footer.html" %}
+

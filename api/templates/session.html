@@ -1,0 +1,23 @@
+{% include "header.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            <div class="col-2">
+                <img class="avatar" src='{{ session["presenter_avatar"] }}'>
+            </div>
+            <div class="col-10">
+                <h1>{{ session["title"] }}</h1>
+                <h5>Presenter: <a href='{{ url_for("presenter", name=session["presenter"]) }}'>{{ session["presenter"] }}</a></h5>
+                <h5>{{ session["start_time"].strftime("%A, %-I %p") }} - {{ session["end_time"].strftime("%-I %p") }}, {{session["location"]}} Meeting Room</h5>
+                <p>{{ session["summary"] }}</p>
+                {% set location = session["location"] %}
+                <img src='{{ url_for("static", filename="images/" + location.lower()) + ".png" }}'>
+            </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+{% include "footer.html" %}

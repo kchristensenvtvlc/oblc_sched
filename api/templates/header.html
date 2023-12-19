@@ -1,0 +1,38 @@
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>OBLC Schedule</title>
+    <script src="https://kit.fontawesome.com/c3b019000f.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='fav.png') }}">
+
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Right Now</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'thursday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='thursday') }}">Thursday</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'friday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='friday') }}">Friday</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'exhibitors' %}active{% endif %}" aria-current="page" href="{{ url_for('exhibitors') }}" aria-disabled="true">Exhibitors</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'map' %}active{% endif %}" href="{{ url_for('map') }}" aria-disabled="true">Map</a>
+  </li>
+</ul>
+
+
+{% endblock %}

@@ -20,11 +20,11 @@
         </a>
     {% endfor %}
 </div>
-        </div>
+                </div>
             {% endfor %}
         </div>
 
-<div class="col-2">
+        <div class="col-2">
     <p>Filter by Track:</p>
     <form id="formName" action="{{ url_for('filter_by_day', timeframe=timeframe) }}" method="POST">
         <input type="checkbox" id="administrator" name="filter" value="Administrator">
@@ -35,6 +35,7 @@
         <label for="counselor"><i class="fa-solid fa-square" style="color: #426B2F"></i> Counselor</label><br>
     </form>
 </div>
+    </div>
 
 {% endblock %}
 {% include "footer.html" %}
