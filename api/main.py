@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import pandas as pd
+from urllib.parse import unquote
 from datetime import datetime
 
 app = Flask(__name__)
@@ -45,50 +46,6 @@ def filter_by_day(timeframe):
 
     return render_template('filter_by_day.html', sessions=result_dict, timeframe=timeframe)
 
-@app.route('/filter/<track>')
-def filter_now(track):
-    print(f"Received track: {track}")
-    df = pd.read_csv("api/static/sessions.csv")
-    df['start_time'] = pd.to_datetime(df['start_time'])
-    df['end_time'] = pd.to_datetime(df['end_time'])
-    result_dict = {}
-    for index, row in df.iterrows():
-        start_time_key = row['start_time'].strftime("%-I %p")
-
-        if row['start_time'] <= datetime.now() <= row['end_time']:
-            if start_time_key not in result_dict:
-                result_dict[start_time_key] = []
-
-            row_dict = row.to_dict()
-            row_dict['index'] = index
-            result_dict[start_time_key].append(row_dict)
-
-    result_dict = {key: value for key, value in result_dict.items() if
-                   value[0]["start_time"] <= datetime.now() <= value[0]["end_time"]}
-
-    filtered_dict = {key: value for key, value in result_dict.items() if value[0]["track"] == track}
-    return render_template('index.html')
-
-@app.route('/filter/<timeframe>/<track>')
-def filter(timeframe, track):
-    df = pd.read_csv("api/static/sessions.csv")
-    df['start_time'] = pd.to_datetime(df['start_time'])
-    df = df[df['start_time'].dt.day_name() == timeframe.title()]
-    result_dict = {}
-    for index, row in df.iterrows():
-        start_time_key = row['start_time'].strftime("%-I %p")
-        if start_time_key not in result_dict:
-            result_dict[start_time_key] = []
-
-        row_dict = row.to_dict()
-        row_dict['index'] = index
-        result_dict[start_time_key].append(row_dict)
-
-    filtered_dict = {key: value for key, value in result_dict.items() if value[0]["track"] == track}
-
-    return render_template('filter_by_day.html', sessions=filtered_dict)
-
-
 @app.route('/session/<index>')
 def session(index):
     index = int(index)
@@ -103,11 +60,12 @@ def session(index):
 
 @app.route('/presenter/<name>')
 def presenter(name):
+    decoded_name = unquote(name)
     df = pd.read_csv("api/static/sessions.csv")
     df['start_time'] = pd.to_datetime(df['start_time'])
     df['end_time'] = pd.to_datetime(df['end_time'])
 
-    presenter_row = df.loc[df['presenter'] == name].to_dict('records')[0]
+    presenter_row = df.loc[df['presenter'] == decoded_name].to_dict('records')[0]
 
     return render_template('presenter.html', presenter=presenter_row)
 
@@ -122,8 +80,9 @@ def exhibitors():
 
 @app.route('/exhibitor_page/<name>')
 def exhibitor_page(name):
+    decoded_name = unquote(name)
     df = pd.read_csv("api/static/exhibitors.csv")
-    row = df.loc[df['name'] == name].to_dict('records')[0]
+    row = df.loc[df['name'] == decoded_name].to_dict('records')[0]
     return render_template('exhibitor_page.html', exhibitor=row)
 
 
