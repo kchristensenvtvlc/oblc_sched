@@ -1,0 +1,45 @@
+html body {width: 100vw;}
+
+.session-container {
+    width: 120%;
+    padding: 1%;
+    margin: 0 0 2% 0;
+    margin-bottom: 2%;
+    color: #EFEEE4;
+    border-radius: 8px;
+}
+
+#sessions_rows > div.col-8 > a > div {sizing: border-box;}
+
+.session-container:hover {
+  opacity:0.8;
+  }
+
+
+#filter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 1px rgb(36, 60, 92, .2) solid;
+    color: rgb(36, 60, 92, .5);
+}
+
+#time {
+    text-align: right;
+}
+
+#sessions_rows > div.col-8 > a, body > div > div > div > h3 > a {
+    text-decoration: none;
+}
+
+.avatar, img {
+    width: 100%;
+}
+
+.container, #sessions_rows {
+    margin-top: 2%;
+}
+
+.hidden {
+    display: none;
+}
