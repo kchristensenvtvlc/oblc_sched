@@ -25,15 +25,7 @@
         </div>
 
 <div class="col-2">
-    <p>Filter by Track:</p>
-    <form id="formName" action="{{ url_for('filter_by_day', timeframe=timeframe) }}" method="POST">
-        <input type="checkbox" id="administrator" name="filter" value="Administrator">
-        <label for="administrator"><i class="fa-solid fa-square" style="color: #6E5077"></i> Administrator</label><br>
-        <input type="checkbox" id="teacher" name="filter" value="Teacher">
-        <label for="teacher"><i class="fa-solid fa-square" style="color: #243C5C"></i> Teacher</label><br>
-        <input type="checkbox" id="counselor" name="filter" value="Counselor">
-        <label for="counselor"><i class="fa-solid fa-square" style="color: #426B2F"></i> Counselor</label><br>
-    </form>
+
 </div>
 
 {% endblock %}

@@ -32,17 +32,21 @@ def home():
 def filter_by_day(timeframe):
     df = pd.read_csv("api/static/sessions.csv")
     df['start_time'] = pd.to_datetime(df['start_time'])
+    df['end_time'] = pd.to_datetime(df['end_time'])
     df = df[df['start_time'].dt.day_name() == timeframe.title()]
     result_dict = {}
 
     for index, row in df.iterrows():
-        start_time_key = row['start_time'].strftime("%-I %p")
-        if start_time_key not in result_dict:
-            result_dict[start_time_key] = []
+        start_time_key = row['start_time'].strftime("%-l:%M %p")
+        end_time_key = row['end_time'].strftime("%-l:%M %p")
+        time_range_key = f"{start_time_key} - {end_time_key}"
+
+        if time_range_key not in result_dict:
+            result_dict[time_range_key] = []
 
         row_dict = row.to_dict()
         row_dict['index'] = index
-        result_dict[start_time_key].append(row_dict)
+        result_dict[time_range_key].append(row_dict)
 
     return render_template('filter_by_day.html', sessions=result_dict, timeframe=timeframe)
 
@@ -72,6 +76,11 @@ def presenter(name):
 @app.route('/map')
 def map():
     return render_template('map.html')
+
+@app.route('/sessions')
+def sessions():
+    df = pd.read_csv("api/static/summaries.csv").to_dict('records')
+    return render_template('sessions.html', sessions=df)
 
 @app.route('/exhibitors')
 def exhibitors():

@@ -1,5 +1,11 @@
 html body {width: 100vw;}
 
+h2, h3, h4, h5, p {font-family: 'Roboto', sans-serif; }
+
+div.col-lg-10 > h2 {font-family: 'Montserrat', sans-serif; color: #333333}
+div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color: #333333}
+
+
 .session-container {
     width: 120%;
     padding: 1%;
@@ -10,10 +16,6 @@ html body {width: 100vw;}
 }
 
 #sessions_rows > div.col-8 > a > div {sizing: border-box;}
-
-.session-container:hover {
-  opacity:0.8;
-  }
 
 
 #filter {
@@ -42,4 +44,10 @@ html body {width: 100vw;}
 
 .hidden {
     display: none;
+}
+
+.summaries_headshot {
+    border-radius: 50%;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 0.75rem #333333);
 }
