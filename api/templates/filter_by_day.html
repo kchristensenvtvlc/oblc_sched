@@ -6,28 +6,38 @@
             {% for timeslot in sessions %}
                 <div id="sessions_rows" class="row">
                     <div id="time" class="col-2">
+                        {% if not sessions[timeslot][0]["block"] is none %}
+                            {% if not sessions[timeslot][0]["block"] != sessions[timeslot][0]["block"] %}
+                                <h5>{{ sessions[timeslot][0]["block"] }}</h5>
+                            {% endif %}
+                        {% endif %}
                         <p>{{ timeslot }}</p>
                     </div>
 
-<div class="col-8">
-    {% for session in sessions[timeslot] %}
-        {% set track_color = {'block': '#243C5C', 'transition': '#6E5077', 'keynote': '#426B2F'}.get(session["track"], '#FFFFFF') %}
+                    <div class="col-8">
+                        {% for session in sessions[timeslot] %}
+                            {% set track_color = {'block': '#243C5C', 'transition': '#6E5077', 'keynote': '#426B2F'}.get(session["track"], '#FFFFFF') %}
 
-            <div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}">
-                <h5>{{ session["title"] }}</h5>
-                {% if session["presenter"] %}
-                <p>{{ session["presenter"] }}</p>
-                {% endif %}
-            </div>
+                            <a href="{{ url_for('session', index=session['index']) }}"><div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}">
+                                <h5>{{ session["title"] }}</h5>
+                                {% for presenter in session["presenters_list"] %}
+                                    {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if presenter in presenters['presenter'].tolist() else None %}
+                                    {% if presenter_info is not none %}
+                                        <p>{{ presenter }} - {{ presenter_info['title'] }}</p>
+                                    {% else %}
+                                        <p>{{ presenter }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            </a>
 
-    {% endfor %}
-</div>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
 
-        <div class="col-2">
-</div>
+        <div class="col-2"></div>
     </div>
 
 {% endblock %}

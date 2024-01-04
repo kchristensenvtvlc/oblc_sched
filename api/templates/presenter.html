@@ -5,11 +5,19 @@
 <div class="container">
     <div class="row">
             <div class="col-2">
-                <img class="avatar" src='{{ presenter["presenter_avatar"] }}'>
+                {% if not presenter["presenter_avatar"] != presenter["presenter_avatar"] %}
+                        <img class="avatar" src='{{ presenter["presenter_avatar"] }}'>
+                {% endif %}
+
+
             </div>
             <div class="col-10">
                 <h1>{{ presenter["presenter"] }}</h1>
-                <p>{{ presenter["presenter_bio"] }}</p>
+                <h3>{{ presenter["title"] }}</h3>
+
+                {% if not presenter["presenter_bio"] != presenter["presenter_bio"] %}
+                        <p>{{ presenter["presenter_bio"] }}</p>
+                {% endif %}
             </div>
     </div>
 </div>

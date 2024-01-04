@@ -3,21 +3,40 @@
 
 <div class="container">
     <div class="row">
-            <div class="col-2">
-                <img class="avatar" src='{{ session["presenter_avatar"] }}'>
-            </div>
-            <div class="col-10">
-                <h1>{{ session["title"] }}</h1>
-                <h5>Presenter: <a href='{{ url_for("presenter", name=session["presenter"]) }}'>{{ session["presenter"] }}</a></h5>
-                <h5>{{ session["start_time"].strftime("%A, %-I %p") }} - {{ session["end_time"].strftime("%-I %p") }}, {{session["location"]}} Meeting Room</h5>
-                <p>{{ session["summary"] }}</p>
-                {% set location = session["location"] %}
-                <img src='{{ url_for("static", filename="images/" + location.lower()) + ".png" }}'>
-            </div>
+        <div class="col-2">
+            {% for presenter in session['presenter_list'] %}
+                {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if (presenters['presenter'] == presenter).any() else None %}
+                {% if not presenter_info["presenter_avatar"] != presenter_info["presenter_avatar"] %}
+                <img class="avatar" src='{{ presenter_info["presenter_avatar"] }}' alt="{{ presenter }} Avatar">
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="col-10">
+            <h1>{{ session["title"] }}</h1>
+                {% if session['presenter_list'] %}
+                <h5>Presenters:
+                    {% for presenter in session['presenter_list'] %}
+                        {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if presenter in presenters['presenter'].tolist() else None %}
+                        {% if "VTVLC" not in presenter %}
+                            <a href='{{ url_for("presenter", name=presenter) }}'>{{ presenter }}</a>
+                        {% else %}
+                            {{ presenter }}
+                        {% endif %}
+                        {% if not loop.last %}& {% endif %}
+                    {% endfor %}
+                </h5>
+            {% endif %}
+            <h5>{{ session["start_time"].strftime("%A, %-I %p") }} - {{ session["end_time"].strftime("%-I %p") }}, {{session["location"]}}</h5>
+
+            {% if not session["summary"] != session["summary"] %}
+                        <p>{{ session["summary"] }}</p>
+                            {% endif %}
+            {% set location = session["location"] %}
+            <img class='map_image' src='{{ url_for("static", filename="images/" + location.lower()) + ".png" }}'>
+        </div>
     </div>
-
 </div>
-
 
 {% endblock %}
 {% include "footer.html" %}

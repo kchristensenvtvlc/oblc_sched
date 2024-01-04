@@ -21,14 +21,12 @@
 <body>
 
 <ul class="nav nav-tabs">
-    <li class="nav-item">
-    <a class="nav-link {% if request.endpoint == 'sessions' %}active{% endif %}" aria-current="page" href="{{ url_for('sessions') }}" aria-disabled="true">Sessions</a>
+
+  <li class="nav-item">
+    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'thursday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='thursday') }}">Thursday</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'thursday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='thursday') }}">Thursday (Preliminary Schedule)</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'friday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='friday') }}">Friday (Preliminary Schedule)</a>
+    <a class="nav-link {% if request.endpoint == 'filter_by_day' and request.args.get('timeframe') == 'friday' %}active{% endif %}" href="{{ url_for('filter_by_day', timeframe='friday') }}">Friday</a>
   </li>
 
 </ul>

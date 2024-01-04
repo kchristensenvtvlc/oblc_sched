@@ -30,7 +30,8 @@ def home():
 
 @app.route('/<timeframe>', methods=['GET', 'POST'])
 def filter_by_day(timeframe):
-    df = pd.read_csv("api/static/sessions.csv")
+    df = pd.read_csv("api/static/oblc_data - sessions.csv")
+    presenter_df = pd.read_csv("api/static/oblc_data - presenters.csv")
     df['start_time'] = pd.to_datetime(df['start_time'])
     df['end_time'] = pd.to_datetime(df['end_time'])
     df = df[df['start_time'].dt.day_name() == timeframe.title()]
@@ -44,30 +45,39 @@ def filter_by_day(timeframe):
         if time_range_key not in result_dict:
             result_dict[time_range_key] = []
 
+        presenter_value = row['presenter']
+        presenter_list = [] if pd.isna(presenter_value) else presenter_value.split(', ')
+
         row_dict = row.to_dict()
         row_dict['index'] = index
+        row_dict['presenters_list'] = presenter_list
         result_dict[time_range_key].append(row_dict)
 
-    return render_template('filter_by_day.html', sessions=result_dict, timeframe=timeframe)
+    return render_template('filter_by_day.html', sessions=result_dict, presenters=presenter_df, timeframe=timeframe)
 
 @app.route('/session/<index>')
 def session(index):
     index = int(index)
-
-    df = pd.read_csv("api/static/sessions.csv")
+    presenter_df = pd.read_csv("api/static/oblc_data - presenters.csv")
+    df = pd.read_csv("api/static/oblc_data - sessions.csv")
     df['start_time'] = pd.to_datetime(df['start_time'])
     df['end_time'] = pd.to_datetime(df['end_time'])
 
     session_data = df.loc[index].to_dict()
 
-    return render_template('session.html', session=session_data)
+    # Split the presenter list
+    if 'presenter' in session_data and isinstance(session_data['presenter'], str):
+        session_data['presenter_list'] = session_data['presenter'].split(', ')
+    else:
+        session_data['presenter_list'] = []
+
+    return render_template('session.html', presenters=presenter_df, session=session_data)
+
 
 @app.route('/presenter/<name>')
 def presenter(name):
     decoded_name = unquote(name)
-    df = pd.read_csv("api/static/sessions.csv")
-    df['start_time'] = pd.to_datetime(df['start_time'])
-    df['end_time'] = pd.to_datetime(df['end_time'])
+    df = pd.read_csv("api/static/oblc_data - presenters.csv")
 
     presenter_row = df.loc[df['presenter'] == decoded_name].to_dict('records')[0]
 
@@ -82,17 +92,17 @@ def sessions():
     df = pd.read_csv("api/static/summaries.csv").to_dict('records')
     return render_template('sessions.html', sessions=df)
 
-@app.route('/exhibitors')
-def exhibitors():
+@app.route('/sponsors')
+def sponsors():
     df = pd.read_csv("api/static/exhibitors.csv").to_dict('records')
-    return render_template('exhibitors.html', exhibitors=df)
+    return render_template('sponsors.html', sponsors=df)
 
-@app.route('/exhibitor_page/<name>')
-def exhibitor_page(name):
+@app.route('/sponsor_page/<name>')
+def sponsor(name):
     decoded_name = unquote(name)
     df = pd.read_csv("api/static/exhibitors.csv")
     row = df.loc[df['name'] == decoded_name].to_dict('records')[0]
-    return render_template('exhibitor_page.html', exhibitor=row)
+    return render_template('sponsor_page.html', sponsor=row)
 
 
 if __name__ == '__main__':
