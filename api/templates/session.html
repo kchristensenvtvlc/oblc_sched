@@ -33,7 +33,8 @@
                         <p>{{ session["summary"] }}</p>
                             {% endif %}
             {% set location = session["location"] %}
-            <img class='map_image' src='{{ url_for("static", filename="images/" + location.lower()) + ".png" }}'>
+            {% set encoded_location = location.lower()|replace(' ', '_') %}
+            <img class='map_image' src='{{ url_for("static", filename="images/" + encoded_location + ".png") }}'>
         </div>
     </div>
 </div>
