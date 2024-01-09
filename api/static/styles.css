@@ -28,7 +28,7 @@ div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color:
     text-align: right;
 }
 
-a, #sessions_rows > div.col-lg-6 > a {
+a, #sessions_rows > div.col-lg-6 > a, #sessions_rows > div.col-lg-6 > a > div {
     text-decoration: none;
 }
 
@@ -58,7 +58,7 @@ a, #sessions_rows > div.col-lg-6 > a {
     width: 50%;
 }
 
-#sessions_rows > div.col-8 > a > div > p {margin-bottom: 1%;}
+#sessions_rows > div.col-6 > a > div > p {margin-bottom: 1%;}
 
 #time {text-align: left; padding-right: 10px;}
 
