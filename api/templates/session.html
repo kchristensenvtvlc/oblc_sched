@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-2">
+        <div class="col-md-2">
             {% for presenter in session['presenter_list'] %}
                 {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if (presenters['presenter'] == presenter).any() else None %}
                 {% if not presenter_info["presenter_avatar"] != presenter_info["presenter_avatar"] %}
@@ -12,7 +12,7 @@
             {% endfor %}
         </div>
 
-        <div class="col-10">
+        <div class="col-md-10">
             <h1>{{ session["title"] }}</h1>
                 {% if session['presenter_list'] %}
                 <h5>Presenters:

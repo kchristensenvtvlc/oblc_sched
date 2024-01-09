@@ -58,3 +58,18 @@ div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color:
 }
 
 #sessions_rows > div.col-8 > a > div > p {margin-bottom: 1%;}
+
+#time {text-align: left; padding-right: 10px;}
+
+@media only screen and (max-width: 768px) {
+    .session-container {
+        width: 100%;
+    }
+
+    .avatar {
+        display: inline;
+        width: 45%;
+        padding-right: 10px;
+    }
+
+}
