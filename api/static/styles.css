@@ -62,10 +62,10 @@ a {
 #time {text-align: left; padding-right: 10px;}
 
 @media only screen and (max-width: 768px) {
-    #time {text-align: center; padding: 0;}
+    #time {width: 90%; text-align: center; padding: 0;}
 
     .session-container {
-        width: 100%;
+        width: 90%;
     }
 
     .avatar {
