@@ -8,24 +8,31 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    df = pd.read_csv("api/static/sessions.csv")
+    df = pd.read_csv("api/static/oblc_data - sessions.csv")
+    presenter_df = pd.read_csv("api/static/oblc_data - presenters.csv")
     df['start_time'] = pd.to_datetime(df['start_time'])
     df['end_time'] = pd.to_datetime(df['end_time'])
     result_dict = {}
+
     for index, row in df.iterrows():
-        start_time_key = row['start_time'].strftime("%-I %p")
+        start_time_key = row['start_time'].strftime("%-l:%M %p")
+        end_time_key = row['end_time'].strftime("%-l:%M %p")
+        time_range_key = f"{start_time_key} - {end_time_key}"
 
-        if row['start_time'] <= datetime.now() <= row['end_time']:
-                if start_time_key not in result_dict:
-                    result_dict[start_time_key] = []
+        if time_range_key not in result_dict:
+            result_dict[time_range_key] = []
 
-                row_dict = row.to_dict()
-                row_dict['index'] = index
-                result_dict[start_time_key].append(row_dict)
+        presenter_value = row['presenter']
+        presenter_list = [] if pd.isna(presenter_value) else presenter_value.split(', ')
+
+        row_dict = row.to_dict()
+        row_dict['index'] = index
+        row_dict['presenters_list'] = presenter_list
+        result_dict[time_range_key].append(row_dict)
 
     result_dict = {key: value for key, value in result_dict.items() if
                    value[0]["start_time"] <= datetime.now() <= value[0]["end_time"]}
-    return render_template('index.html', sessions=result_dict)
+    return render_template('index.html', sessions=result_dict, presenters=presenter_df)
 
 
 @app.route('/<timeframe>', methods=['GET', 'POST'])
