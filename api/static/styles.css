@@ -12,6 +12,7 @@ div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color:
     margin-bottom: 2%;
     color: #EFEEE4;
     border-radius: 8px;
+    text-decoration: none;
 }
 
 
@@ -27,7 +28,7 @@ div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color:
     text-align: right;
 }
 
-a {
+a, #sessions_rows > div.col-lg-6 > a {
     text-decoration: none;
 }
 
