@@ -18,7 +18,7 @@
                         {% for session in sessions[timeslot] %}
                             {% set track_color = {'block': '#243C5C', 'transition': '#6E5077', 'keynote': '#426B2F'}.get(session["track"], '#FFFFFF') %}
 
-                            <a href="{{ url_for('session', index=session['index']) }}"><div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}">
+                            <a href="{{ url_for('session', index=session['index']) }}"><div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}; text-decoration: none;">
                                 <h5>{{ session["title"] }}</h5>
                                 {% for presenter in session["presenters_list"] %}
                                     {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if presenter in presenters['presenter'].tolist() else None %}
