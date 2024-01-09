@@ -62,11 +62,11 @@ a {
 #time {text-align: left; padding-right: 10px;}
 
 @media only screen and (max-width: 768px) {
-    #time {width: 90%; text-align: center; padding: 0;}
 
-    .session-container {
-        width: 90%;
-    }
+
+    html body {padding: 1vw;}
+
+    #sessions_rows {width: 100%;}
 
     .avatar {
         display: inline;
