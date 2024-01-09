@@ -27,7 +27,7 @@ div.col-lg-10 > h5, div.col-lg-10 > p {font-family: 'Roboto', sans-serif; color:
     text-align: right;
 }
 
-#sessions_rows > div.col-lg-8 > a, body > div > div > div > h3 > a, #sessions_rows > div.col-lg-6 > a {
+a {
     text-decoration: none;
 }
 
