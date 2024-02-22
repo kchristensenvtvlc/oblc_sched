@@ -134,7 +134,7 @@ i {font-size: 4rem;
 
     html body {padding: 1vw;}
 
-    #sessions_rows {width: 100%;}
+    #sessions_rows {width: 90%;}
 
     .avatar {
         display: inline;
