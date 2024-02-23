@@ -134,7 +134,13 @@ i {font-size: 4rem;
 
     html body {padding: 1vw;}
 
-    #sessions_rows {width: 90%;}
+    #sessions_rows {width: 85%;}
+
+    p {font-size: 1.3rem;}
+
+    h5 {font-size: 1.4rem;}
+
+    .nav-tabs .nav-link {font-size: 1.5rem;}
 
     .avatar {
         display: inline;
