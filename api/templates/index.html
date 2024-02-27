@@ -12,7 +12,6 @@
 
 <div class="col-8">
     {% for session in sessions[timeslot] %}
-        {% set track_color = {'Teacher': '#243C5C', 'Administrator': '#6E5077', 'Counselor': '#426B2F'}.get(session["track"], '#FFFFFF') %}
         <a href="{{ url_for('session', index=session['index']) }}">
             <div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}">
                 <h5>{{ session["title"] }}</h5>
@@ -27,7 +26,7 @@
 
 <div class="col-2">
 
-</div>
+</div></div>
 
 {% endblock %}
 {% include "footer.html" %}
