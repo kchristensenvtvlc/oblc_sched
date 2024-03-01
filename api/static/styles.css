@@ -141,9 +141,9 @@ i {font-size: 4rem;
 
     h5 {font-size: 1.4rem;}
 
-    .nav-tabs .nav-link {font-size: 1.2rem; width: 100%;}
+    .nav-tabs .nav-link {font-size: .8rem; width: 100%;}
 
-    a.nav-link {width: 33%;}
+    a.nav-link {width: 25%;}
 
     .avatar {
         display: inline;
