@@ -94,22 +94,17 @@ def presenter(name):
 def map():
     return render_template('map.html')
 
-@app.route('/sessions')
-def sessions():
-    df = pd.read_csv("api/static/summaries.csv").to_dict('records')
-    return render_template('sessions.html', sessions=df)
+@app.route('/exhibitors')
+def exhibitors():
+    df = pd.read_csv("api/static/oblc_data - exhibitors.csv").to_dict('records')
+    return render_template('exhibitors.html', exhibitors=df)
 
-@app.route('/sponsors')
-def sponsors():
-    df = pd.read_csv("api/static/exhibitors.csv").to_dict('records')
-    return render_template('sponsors.html', sponsors=df)
-
-@app.route('/sponsor_page/<name>')
-def sponsor(name):
+@app.route('/exhibitor_page/<name>')
+def exhibitor_page(name):
     decoded_name = unquote(name)
-    df = pd.read_csv("api/static/exhibitors.csv")
+    df = pd.read_csv("api/static/oblc_data - exhibitors.csv")
     row = df.loc[df['name'] == decoded_name].to_dict('records')[0]
-    return render_template('sponsor_page.html', sponsor=row)
+    return render_template('exhibitor_page.html', exhibitor=row)
 
 
 if __name__ == '__main__':
