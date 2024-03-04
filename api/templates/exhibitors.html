@@ -8,12 +8,12 @@
     <div class="row">
 
             <div class="col-lg-2">
-                <a href="{{ url_for('exhibitor_page', name=exhibitor['name']) }}">
+                <a href="{{ exhibitor['companysite']}}">
                 <img src='{{ exhibitor["logo"]}}'></a>
             </div>
 
             <div class="col-lg-10">
-                <h3><a href="{{ url_for('exhibitor_page', name=exhibitor['name']) }}">{{ exhibitor["name"] }}</a></h3>
+                <h3><a href="{{ url_for('exhibitor_page', name=exhibitor['name']) }}"   target="_blank" rel="noopener noreferrer">{{ exhibitor["name"] }}</a></h3>
                 <p>{{ exhibitor["description"] }}</p>
             </div>
     </div>
