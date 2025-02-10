@@ -1,0 +1,32 @@
+{% include "header.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-10">
+            {% for timeslot in sessions %}
+                <div id="sessions_rows" class="row">
+                    <div id="time" class="col-2">
+                        <p>{{ timeslot }}</p>
+                        <p>{{ timeslot["block"] }}</p>
+                    </div>
+
+<div class="col-8">
+    {% for session in sessions[timeslot] %}
+        <a href="{{ url_for('session', index=session['index']) }}">
+            <div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}">
+                <h5>{{ session["title"] }}</h5>
+                <p>{{ session["presenter"] }}</p>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+        </div>
+            {% endfor %}
+        </div>
+
+<div class="col-2">
+
+</div></div>
+
+{% endblock %}
+{% include "footer.html" %}

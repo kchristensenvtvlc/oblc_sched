@@ -1,0 +1,48 @@
+{% include "header.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-10">
+            {% for timeslot in sessions %}
+                <div id="sessions_rows" class="row">
+                    <div id="time" class="col-lg-3">
+                        {% if not sessions[timeslot][0]["block"] is none %}
+                            {% if not sessions[timeslot][0]["block"] != sessions[timeslot][0]["block"] %}
+                                <h5>{{ sessions[timeslot][0]["block"] }}</h5>
+                            {% endif %}
+                        {% endif %}
+                        <p>{{ timeslot }}</p>
+                    </div>
+
+                    <div class="col-lg-6" style="text-decoration: none;">
+                        {% for session in sessions[timeslot] %}
+                            {% set track_color = {'block': '#243C5C', 'transition': '#6E5077', 'keynote': '#426B2F', 'flash': '#3867CB'}.get(session["track"], '#FFFFFF') %}
+
+                            <a href="{{ url_for('session', index=session['index']) }}"><div class="session-container {{ session['track'] | lower }}" style="background-color: {{track_color}}; text-decoration: none;">
+                                <h5>{{ session["title"] }}</h5>
+                                {% for presenter in session["presenters_list"] %}
+                                    {% set presenter_info = presenters[presenters['presenter'] == presenter].iloc[0] if presenter in presenters['presenter'].tolist() else None %}
+                                    {% if presenter_info is not none %}
+                                        <p>{{ presenter }} - {{ presenter_info['title'] }}</p>
+                                    {% else %}
+                                        <p>{{ presenter }}</p>
+                                    {% endif %}
+
+                            {% else %}
+
+
+                            {% endfor %}
+                            </div>
+                            </a>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-2"></div>
+    </div>
+
+{% endblock %}
+{% include "footer.html" %}
